@@ -1,0 +1,99 @@
+package addone;
+import java.util.Arrays;
+
+public class Addone {
+    
+    public static void convert(int[] array){                 //method which converts array into number form
+        int n = 0;                                          //create int n which will store our final integer
+        for(int i=0;i<array.length;i++){                    //for loop converts our array into an int
+            n = n*10+array[i];
+        }
+        System.out.println("Final number: " + n);
+    }
+    
+    public static void AddOne(int x){                       //receive x from main
+        
+        String str = Integer.toString(x);               //turn int x to a string str
+        int[] arr = new int[str.length()];                //create our empty array
+        for (int i = 0; i < str.length(); i++){           
+            arr[i] = str.charAt(i) - '0';           //convert string into an array
+        }
+        
+        int ct = arr.length - 1;                               //ct = counter. starts on last index
+        //System.out.println(ct);                              //index of last element
+        System.out.println("Original array: " + Arrays.toString(arr) );         //print original array
+        System.out.println("Original number: " + str);                             //print in number form
+        
+        
+        arr[ct] = arr[ct]+1;                                    //add 1 to last value
+        System.out.println(Arrays.toString(arr) );          
+        
+        
+        while(arr[ct]==10&&ct!=0) {                             //while last value = 10 and if our index is not at 0, then:
+            arr[ct] = 0;                                        //set value at ct to 0
+            ct = ct-1;                                          //decremnt ct so we can check next arr[ct] if equal to 10
+            System.out.println(Arrays.toString(arr) );
+            
+            if(arr[ct] !=10){                                   //if arr[ct] is not 10
+                arr[ct] = arr[ct]+1;                            //then add one. if it is, we go back up and change
+                System.out.println(Arrays.toString(arr) );
+            }//end if statement
+        }//end while loop
+        
+        
+        int newarr[] = new int[arr.length + 1];                       //create new arr
+        if(arr[0] == 10){                                             //if our first index gives us 0 (bc we added 9+1) [9,9] -> [9,10] -> [10,0]
+            for(int i=0;i<arr.length;i++){                            //create push method so [9,9] -> [0,0,0] -> and put 1 in newarr[0] -> [1,0,0]
+                newarr[i+1] = arr[i];
+                newarr[1] = 0;
+            }//end for loop
+            newarr[0] = 1;                                              //and change the first element to 1
+            newarr[1]= 0;                                               //make the second element 10 into a 0. [9,9,9] -> [1,10,0,0] -> [1,0,0,0]
+            
+            System.out.println(Arrays.toString(newarr) + " = Final array" );     //print newarr if we had to extend size
+            convert(newarr);
+        }//end if statement
+        
+        else {
+            System.out.println(Arrays.toString(arr) + "= Final array" );        //else print original array with same size
+            convert(arr);
+        }
+    }
+    
+    
+    public static void main(String[] args) {
+        
+        int x = 999;                                    //enter the number you want to convert to array and AddOne
+        
+        AddOne(x);                                      // call in method ^
+
+        
+        /*int n = 0;                                          //create int n which will store our final integer
+        for(int i=0;i<newarr.length;i++){                    //for loop converts our array into an int
+            n = n*10+newarr[i];
+        }
+        System.out.println("Final number: " + n);
+        
+        
+        /*
+        int count = 0;
+                
+        for(int i = 0; i<size ; i++) {
+            System.out.println(i);
+            
+            if (arr[i] == size) {
+                arr[i] = arr[i] + 1;
+                System.out.println(Arrays.toString(arr));
+            }
+            if (arr[size] == 9){
+                arr[size] = 0;
+                arr[size-1] = arr[size] + 1;
+            }
+            
+            
+        }
+            */
+            
+        } // end main
+    
+}
