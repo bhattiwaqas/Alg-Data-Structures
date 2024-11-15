@@ -1,0 +1,58 @@
+package javaapplication1;
+
+import java.util.Stack;
+
+public class JavaApplication1 {
+
+    public static boolean check(String s) {
+        Stack<Character> stack = new Stack<Character>();        //create stack
+        
+        for (int i = 0; i<s.length(); i++) {            // start for loop
+            char c = s.charAt(i);                  // c variable for charAt(i)
+            
+            if (c == '(' || c == '[' || c == '{') {
+                stack.push(c);                     // push into stack if ([{
+                System.out.println(stack);
+            }
+            else if (c == ')' || c == ')' || c == '}'){      //else we will pop if )]}
+                if(stack.isEmpty() ) {                  // avoid stack underload
+                    System.out.println("error");
+                    return false;
+                }
+                else{
+                    char p = stack.pop();              // pop p most recent from stack LIFO
+                    System.out.println(stack);
+                   
+                        //check if closing matches the recent opening delimiter
+                        
+                    if ( (p != '(' && c == ')') || (p != '[' && c == ']') || (p != '{' && c == '}') ){
+                        //we want to pop ([{ so if we dont get that (only pushed ([{, so we need to pop ([{ )
+                        //and if character at i is )]} 
+                        //then error and stop
+                        System.out.println("error");
+                        return false;
+                    } // end long if
+                    
+                } // end else stack not empty
+                
+            }// end else if )]}
+            
+        } //end for loop
+
+        return true; // if no errors return true
+    }
+    public static void main(String[] args) {
+        
+        String s = "(())[]";              //input your string here
+        System.out.println(s);          //print string
+        
+        System.out.println( check(s) );
+        if (check(s)) {
+            System.out.println("true");
+        } else {
+            System.out.println("false");
+        }
+
+    } //end main method
+    
+} // end class
